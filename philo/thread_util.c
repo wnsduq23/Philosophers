@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:41:36 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 14:41:55 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/04 20:26:34 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_time(t_philo_profile *p, struct timeval *time,
 	gettimeofday(time, NULL);
 	if (dest)
 		*dest = *time;
-	*time_stamp = time->tv_sec * 1000 + time->tv_usec / 1000 - p->time_init_val;
+	*time_stamp = time->tv_sec * 1000 + time->tv_usec / 1000 - p->time_init_val;// why sec * 1000 & usec /1000???
 	pthread_mutex_unlock(p->m_time_adr);
 }
 

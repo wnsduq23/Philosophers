@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 20:48:04 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 15:58:43 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/04 20:40:13 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philo_manager t_philo_manager;
 
 typedef struct s_philo_profile
 {
+	pthread_t		thr;
 	int				idx;
 	struct timeval	r_eat;
 	struct timeval	r_sleep;
@@ -55,31 +56,30 @@ typedef struct s_philo_profile
 	int				must_eat_num;
 	__uint64_t		time_init_val;
 	struct timeval	*time_adr;
-	pthread_mutex_t	*m_time_adr;
 	int				*must_eat_flag;
-	pthread_mutex_t	*m_must_eat_flag;
 	int				*t_flag_adr;
-	pthread_mutex_t	*m_t_flag_adr;
 	int				*fork_stat[2];
+	pthread_mutex_t	*m_time_adr;
+	pthread_mutex_t	*m_t_flag_adr;
+	pthread_mutex_t	*m_must_eat_flag;
 	pthread_mutex_t	*m_fork_stat;
 	pthread_mutex_t	*m_fork_slot[2];
-	pthread_t		thr;
 	t_philo_manager	*manager_adr;
 }	t_philo_profile;
 
 struct s_philo_manager
 {
 	int				philo_num;
-	t_philo_profile	*profile;
 	struct timeval	time;
-	pthread_mutex_t	m_time;
 	int				t_flag;
-	pthread_mutex_t	m_t_flag;
 	int				*must_eat_flags;
-	pthread_mutex_t	m_must_eat_flags;
 	int				*fork_stat;
+	pthread_mutex_t	m_time;
+	pthread_mutex_t	m_t_flag;
+	pthread_mutex_t	m_must_eat_flags;
 	pthread_mutex_t	m_fork_stat;
 	pthread_mutex_t	**m_fork;
+	t_philo_profile	*profile;
 };
 
 typedef struct s_philo

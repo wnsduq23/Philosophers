@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 21:51:42 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 16:26:53 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/04 16:40:05 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	init_mtx(t_philo_manager *manager, t_philo p)
 
 	/** if (init_mtx_seg_a(manager, p)) */
 	/**     return (FAIL); */
-	init_fork_setting(manager, p);
+	if (init_fork_setting(manager, p) == FAIL)
+		return (FAIL);
 	i = 0;
 	while (i < p.philo_num)
 	{
