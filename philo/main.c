@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 20:47:41 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 15:52:50 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 20:26:29 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ int	main(int ac, char **av)
 		_error_msg("invalid input\n");
 		return (1);
 	}
-	if (init_mtx(&manager, philo) == FAIL)
+	if (init_mtx(&manager, philo) != SUCCESS)
 		return (1);
-	if (init_manager(&manager, philo) == FAIL)
+	if (init_manager(&manager, philo) != SUCCESS)
 		return (1);
 	gettimeofday(&manager.time, NULL);
 	init_profile(&manager, &philo);
-	if (get_threads(philo, manager.profile) == FAIL)
+	if (get_threads(philo, manager.profile) != SUCCESS)
 	{
 		free_mem(&manager, philo);
 		return (1);

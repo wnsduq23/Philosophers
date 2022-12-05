@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:23:09 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 20:48:21 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 22:06:27 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	grab_eat_sleep(t_philo_profile *p, struct timeval *time)
 	get_time(p, time, &p->r_eat, &time_stamp);
 	if (!is_termination(p))
 		return (unlock_fork(p));
-	printf("%llu %i is eating\n", time_stamp, p->idx);
+	printf("%llums %i is eating\n", time_stamp, p->idx);
 	p->eat_cnt++;
 	pthread_mutex_unlock(p->m_t_flag_adr);
 	if (p->eat_cnt == p->must_eat_num)
@@ -119,7 +119,7 @@ void	*routine(void *philo_info)
 		return (0);
 	if (p->manager_adr->philo_num % 2)// 짝수명이면 
 	{
-		if (p->idx == p->manager_adr->philo_num)// why last man eating *2 ? 
+		if (p->idx == p->manager_adr->philo_num)// 이거 꼭 해야함 ? 왜?
 			usleep_check(p, p->time_adr, p->eat_time * 2);
 		else if (p->idx % 2) // 철학자가 짝수번째면
 			usleep_check(p, p->time_adr, 1);

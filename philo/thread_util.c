@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:41:36 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 20:26:34 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 22:16:04 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*kill_single_philo(t_philo_profile *p, struct timeval *time)
 	usleep_check(p, time, p->die_time);
 	gettimeofday(time, NULL);
 	time_stamp = time->tv_sec * 1000 + time->tv_usec / 1000 - p->time_init_val;
-	printf("%llu 1 died\n", time_stamp);
+	printf("%llums 1 died\n", time_stamp);
 	return (NULL);
 }
 
@@ -49,7 +49,7 @@ void	get_time(t_philo_profile *p, struct timeval *time,
 	gettimeofday(time, NULL);
 	if (dest)
 		*dest = *time;
-	*time_stamp = time->tv_sec * 1000 + time->tv_usec / 1000 - p->time_init_val;// why sec * 1000 & usec /1000???
+	*time_stamp = time->tv_sec * 1000 + time->tv_usec / 1000 - p->time_init_val;
 	pthread_mutex_unlock(p->m_time_adr);
 }
 
@@ -63,7 +63,7 @@ void	usleep_check(t_philo_profile *p, struct timeval *time, int targ_time)
 	get_time(p, time, NULL, &r_time);
 	while (1)
 	{
-		usleep(100);
+		usleep(1000);
 		get_time(p, time, NULL, &time_stamp);
 		if (time_stamp >= (__uint64_t)(targ_time + r_time))
 			break ;

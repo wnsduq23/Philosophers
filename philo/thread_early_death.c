@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:56 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 14:43:04 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 21:47:32 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static void	ed_take_fork_n_eat(t_philo_profile *p,
 	pthread_mutex_unlock(p->m_fork_stat);
 	get_time(p, time, NULL, time_stamp);
 	pthread_mutex_lock(p->m_fork_slot[0]);
-	printf("%llu %i has taken a fork.\n", *time_stamp, p->idx);
+	printf("%llums %i has taken a fork.\n", *time_stamp, p->idx);
 	pthread_mutex_lock(p->m_fork_slot[1]);
-	printf("%llu %i has taken a fork.\n", *time_stamp, p->idx);
+	printf("%llums %i has taken a fork.\n", *time_stamp, p->idx);
 	get_time(p, time, &p->r_eat, time_stamp);
-	printf("%llu %i is eating\n", *time_stamp, p->idx);
+	printf("%llums %i is eating\n", *time_stamp, p->idx);
 }
 
 static int	death_while_eating(t_philo_profile *p, struct timeval *time)
@@ -66,7 +66,7 @@ static int	death_while_sleeping(t_philo_profile *p, struct timeval *time)
 		usleep_check(p, time, p->eat_time);
 		unlock_fork(p);
 		get_time(p, time, &p->r_sleep, &time_stamp);
-		printf("%llu %i is sleeping\n", time_stamp, p->idx);
+		printf("%llums %i is sleeping\n", time_stamp, p->idx);
 		usleep_check(p, time, p->die_time - p->eat_time + 1);
 	}
 	return (1);

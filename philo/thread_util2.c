@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:23 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 20:44:21 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 20:55:39 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_death(t_philo_profile *p)
 		+ p->r_eat.tv_sec * 1000 + p->r_eat.tv_usec / 1000))
 	{
 		*(p->t_flag_adr) = 1;
-		printf("%llu %i died\n", time_stamp, p->idx);
+		printf("%llums %i died\n", time_stamp, p->idx);
 		pthread_mutex_unlock(p->m_t_flag_adr);
 		return (0);
 	}
@@ -60,7 +60,7 @@ int	is_termination(t_philo_profile *p)
 			*(p->t_flag_adr) = 1;
 			pthread_mutex_unlock(p->m_t_flag_adr);
 			pthread_mutex_unlock(p->m_must_eat_flag);
-			return (0);
+			return (0); // 끝났다는 의미
 		}
 		pthread_mutex_unlock(p->m_must_eat_flag);
 	}

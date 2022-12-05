@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:44:17 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 17:10:33 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/05 21:59:14 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,10 @@ static void	init_profile_seg_b(t_philo_profile *p, t_philo_manager *manager,
 		p->fork_stat[1] = NULL;
 		p->m_fork_slot[1] = NULL;
 	}
-	else if (i == philo->philo_num - 1)
-	{
-		p->fork_stat[1] = &manager->fork_stat[0];
-		p->m_fork_slot[1] = manager->m_fork[0];
-	}
 	else
 	{
-		p->fork_stat[1] = &manager->fork_stat[i + 1];
-		p->m_fork_slot[1] = manager->m_fork[i + 1];
+		p->fork_stat[1] = &manager->fork_stat[(i + 1) % philo->philo_num];
+		p->m_fork_slot[1] = manager->m_fork[(i + 1) % philo->philo_num];
 	}
 	p->m_time_adr = &manager->m_time;
 	p->m_must_eat_flag = &manager->m_must_eat_flags;
@@ -75,22 +70,22 @@ static int	get_slots(t_philo_manager *manager, t_philo p)
 {
 	manager->must_eat_flags = (int *)malloc(sizeof(int) * p.philo_num);
 	if (!manager->must_eat_flags)
-		return (1);
+		return (FAIL);
 	manager->profile = (t_philo_profile *)malloc(sizeof(t_philo_profile)
 			* p.philo_num);
 	if (!manager->profile)
 	{
 		free(manager->must_eat_flags);
-		return (1);
+		return (FAIL);
 	}
 	manager->fork_stat = (int *)malloc(sizeof(int) * p.philo_num);
 	if (!manager->fork_stat)
 	{
 		free(manager->profile);
 		free(manager->must_eat_flags);
-		return (1);
+		return (FAIL);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int	init_manager(t_philo_manager *manager, t_philo p)
@@ -99,7 +94,7 @@ int	init_manager(t_philo_manager *manager, t_philo p)
 
 	manager->philo_num = p.philo_num;
 	manager->t_flag = 0;
-	if (get_slots(manager, p))
+	if (get_slots(manager, p) == FAIL)
 	{
 		i = p.philo_num;
 		while (i--)
@@ -116,5 +111,5 @@ int	init_manager(t_philo_manager *manager, t_philo p)
 	i = 0;
 	while (i < p.philo_num)
 		manager->must_eat_flags[i++] = 0;
-	return (0);
+	return (SUCCESS);
 }
