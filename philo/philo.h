@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 20:48:04 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 20:40:13 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/23 14:57:00 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define FAIL 1
 # define NONE -1
 
-typedef struct s_philo_manager t_philo_manager;
+typedef struct s_philo_manager	t_philo_manager;
 
 typedef struct s_philo_profile
 {
@@ -111,7 +111,7 @@ int		init_mtx(t_philo_manager *manager, t_philo p);
 // ================================
 //			thread.c
 // ================================
-void		*routine(void *philo_info);
+void	*routine(void *philo_info);
 
 // ================================
 //			thread_util.c

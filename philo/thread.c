@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:23:09 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/05 22:06:27 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/22 18:06:59 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	take_fork(t_philo_profile *p, struct timeval *time,
 	*p->fork_stat[0] = 0;
 	*p->fork_stat[1] = 0;
 	pthread_mutex_unlock(p->m_fork_stat);
-	if (!is_termination(p))
+	if (is_termination(p) == SUCCESS)
 	{
 		pthread_mutex_lock(p->m_fork_stat);
 		*p->fork_stat[0] = 1;
@@ -41,7 +41,7 @@ static int	gne_sleep(t_philo_profile *p, struct timeval *time)
 	int			think_time;
 
 	get_time(p, time, &p->r_sleep, &time_stamp);
-	if (!is_termination(p))
+	if (is_termination(p) == SUCCESS)
 		return (1);
 	printf("%llums %i is sleeping\n", time_stamp, p->idx);
 	pthread_mutex_unlock(p->m_t_flag_adr);
@@ -52,7 +52,7 @@ static int	gne_sleep(t_philo_profile *p, struct timeval *time)
 	}
 	usleep_check(p, time, p->sleep_time);
 	get_time(p, time, &p->r_think, &time_stamp);
-	if (!is_termination(p))
+	if (is_termination(p) == SUCCESS)
 		return (1);
 	printf("%llums %i is thinking\n", time_stamp, p->idx);
 	pthread_mutex_unlock(p->m_t_flag_adr);
@@ -68,11 +68,11 @@ static int	grab_eat_sleep(t_philo_profile *p, struct timeval *time)
 {
 	__uint64_t		time_stamp;
 
-	if (!is_termination(p))
+	if (is_termination(p) == SUCCESS)
 		return (unlock_fork(p));
 	pthread_mutex_unlock(p->m_t_flag_adr);
 	get_time(p, time, &p->r_eat, &time_stamp);
-	if (!is_termination(p))
+	if (is_termination(p) == SUCCESS)
 		return (unlock_fork(p));
 	printf("%llums %i is eating\n", time_stamp, p->idx);
 	p->eat_cnt++;
@@ -91,7 +91,7 @@ static int	grab_eat_sleep(t_philo_profile *p, struct timeval *time)
 static int	routine_seg(t_philo_profile *p, struct timeval *time,
 		__uint64_t *time_stamp)
 {
-	if (!is_fork_available(p))
+	if (is_fork_available(p))
 	{
 		if (take_fork(p, time, time_stamp))
 			return (1);
@@ -117,14 +117,14 @@ void	*routine(void *philo_info)
 	get_time(p, p->time_adr, &p->r_eat, &time_stamp);
 	if (!early_death(p, p->time_adr))
 		return (0);
-	if (p->manager_adr->philo_num % 2)// 짝수명이면 
+	if (p->manager_adr->philo_num % 2)
 	{
-		if (p->idx == p->manager_adr->philo_num)// 이거 꼭 해야함 ? 왜?
+		if (p->idx == p->manager_adr->philo_num)
 			usleep_check(p, p->time_adr, p->eat_time * 2);
-		else if (p->idx % 2) // 철학자가 짝수번째면
+		else if (p->idx % 2)
 			usleep_check(p, p->time_adr, 1);
 	}
-	else if (p->idx % 2) // 홀수명이면
+	else if (p->idx % 2)
 		usleep_check(p, p->time_adr, p->eat_time);
 	while (is_termination(p))
 	{

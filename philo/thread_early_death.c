@@ -54,7 +54,7 @@ static int	death_while_sleeping(t_philo_profile *p, struct timeval *time)
 			usleep_check(p, time, p->eat_time * 2 + 1);
 		else
 			usleep_check(p, time, p->eat_time + 1);
-		if (!is_termination(p))
+		if (is_termination(p) == SUCCESS)
 			return (0);
 		pthread_mutex_unlock(p->m_t_flag_adr);
 		ed_take_fork_n_eat(p, time, &time_stamp);

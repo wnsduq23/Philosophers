@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:42:23 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/05 20:55:39 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/22 18:06:47 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static int	check_death(t_philo_profile *p)
 		*(p->t_flag_adr) = 1;
 		printf("%llums %i died\n", time_stamp, p->idx);
 		pthread_mutex_unlock(p->m_t_flag_adr);
-		return (0);
+		return (SUCCESS);
 	}
 	else
-		return (1);
+		return (FAIL);
 }
 
 int	is_termination(t_philo_profile *p)
@@ -49,7 +49,7 @@ int	is_termination(t_philo_profile *p)
 	if (*(p->t_flag_adr))
 	{
 		pthread_mutex_unlock(p->m_t_flag_adr);
-		return (0);
+		return (SUCCESS);
 	}
 	if (p->must_eat_flag)
 	{
@@ -60,11 +60,11 @@ int	is_termination(t_philo_profile *p)
 			*(p->t_flag_adr) = 1;
 			pthread_mutex_unlock(p->m_t_flag_adr);
 			pthread_mutex_unlock(p->m_must_eat_flag);
-			return (0); // 끝났다는 의미
+			return (SUCCESS);
 		}
 		pthread_mutex_unlock(p->m_must_eat_flag);
 	}
-	if (!check_death(p))
-		return (0);
-	return (1);
+	if (check_death(p) == SUCCESS)
+		return (SUCCESS);
+	return (FAIL);
 }

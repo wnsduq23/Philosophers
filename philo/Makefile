@@ -6,14 +6,14 @@
 #    By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 19:38:44 by junykim           #+#    #+#              #
-#    Updated: 2022/12/04 17:55:43 by junykim          ###   ########.fr        #
+#    Updated: 2022/12/07 16:22:08 by junykim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 CC		= CC
 NAME	= philo
-CFLAGS	= -Wextra -Wall -Werror
+CFLAGS	= -Wextra -Wall -Werror -fsanitize=thread -g3
 INC		= .
 DEL		= rm -rf
 ARC		= ar -rcs

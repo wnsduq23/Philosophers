@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:41:36 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/05 22:16:04 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/22 19:10:59 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	is_fork_available(t_philo_profile *p)
 {
 	pthread_mutex_lock(p->m_fork_stat);
 	if (*p->fork_stat[0] && *p->fork_stat[1])
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	unlock_fork(t_philo_profile *p)
@@ -63,7 +63,7 @@ void	usleep_check(t_philo_profile *p, struct timeval *time, int targ_time)
 	get_time(p, time, NULL, &r_time);
 	while (1)
 	{
-		usleep(1000);
+		usleep(500);
 		get_time(p, time, NULL, &time_stamp);
 		if (time_stamp >= (__uint64_t)(targ_time + r_time))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 21:08:35 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/04 15:15:41 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/23 14:57:18 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	_error_msg(char *msg)
 	write(0, msg, sizeof(msg));
 }
 
-void	free_mem(t_philo_manager *manager, t_philo args)// not pointer  ?
+void	free_mem(t_philo_manager *manager, t_philo args)
 {
 	int	i;
 

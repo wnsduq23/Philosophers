@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 20:47:41 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/05 20:26:29 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/23 14:55:12 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ static int	get_threads(t_philo args, t_philo_profile *profile)
 	}
 	return (SUCCESS);
 }
+
 int	main(int ac, char **av)
 {
 	t_philo			philo;
 	t_philo_manager	manager;
 
-	if((ac != 5 && ac != 6) || init_philo(&philo, av) == FAIL)
+	if ((ac != 5 && ac != 6) || init_philo(&philo, av) == FAIL)
 	{
 		_error_msg("invalid input\n");
 		return (1);

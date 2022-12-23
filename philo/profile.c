@@ -6,7 +6,7 @@
 /*   By: junykim <junykim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:44:17 by junykim           #+#    #+#             */
-/*   Updated: 2022/12/05 21:59:14 by junykim          ###   ########.fr       */
+/*   Updated: 2022/12/22 15:21:34 by junykim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_profile(t_philo_manager *manager, t_philo *p)
 	}
 }
 
-static int	get_slots(t_philo_manager *manager, t_philo p)
+static int	get_manager(t_philo_manager *manager, t_philo p)
 {
 	manager->must_eat_flags = (int *)malloc(sizeof(int) * p.philo_num);
 	if (!manager->must_eat_flags)
@@ -94,7 +94,7 @@ int	init_manager(t_philo_manager *manager, t_philo p)
 
 	manager->philo_num = p.philo_num;
 	manager->t_flag = 0;
-	if (get_slots(manager, p) == FAIL)
+	if (get_manager(manager, p) == FAIL)
 	{
 		i = p.philo_num;
 		while (i--)
